@@ -22,5 +22,13 @@ from Base_App.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',)
-]+ static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    path('',HomeView),
+    path('book_table',BookTableView),
+    path('menu',MenuView),
+    path('about',AboutView,name="about"),
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+    

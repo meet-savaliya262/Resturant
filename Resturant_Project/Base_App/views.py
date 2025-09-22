@@ -3,15 +3,15 @@ from django.shortcuts import render
 # Create your views here.
 
 def HomeView(request):
-    pass
+    return render(request,'index.html')
 
-def HomeView(request):
-    pass
-
-
-def HomeView(request):
-    pass
+def AboutView(request):
+    return render(request,'about.html')
 
 
-def HomeView(request):
-    pass
+def MenuView(request):
+    return render(request,'menu.html')
+
+
+def BookTableView(request):
+    return render(request,'book_table.html')
