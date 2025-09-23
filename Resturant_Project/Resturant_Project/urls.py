@@ -23,8 +23,8 @@ from Base_App.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',HomeView),
-    path('book_table',BookTableView),
-    path('menu',MenuView),
+    path('book_table',BookTableView,name="book_table"),
+    path('menu',MenuView,name="menu"),
     path('about',AboutView,name="about"),
 ]
 if settings.DEBUG:
