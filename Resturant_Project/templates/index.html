@@ -234,9 +234,7 @@
 
   <!-- end offer section -->
 
-  <!-- food section -->
-
-  <section class="food_section layout_padding-bottom">
+<section class="food_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
@@ -246,30 +244,30 @@
 
       <ul class="filters_menu">
         <li class="active" data-filter="*">All</li>
-        <li data-filter=".burger">Burger</li>
-        <li data-filter=".pizza">Pizza</li>
-        <li data-filter=".pasta">Pasta</li>
-        <li data-filter=".fries">Fries</li>
+        {% for i in list %}
+        <li data-filter=".{{ i.Category_name }}">{{ i.Category_name }}</li>
+       {% endfor %}
       </ul>
 
       <div class="filters-content">
         <div class="row grid">
-          <div class="col-sm-6 col-lg-4 all pizza">
+          {% for j in items %}
+          <div class="col-sm-6 col-lg-4 all {{ j.Category }}">
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f1.png' %}" alt="">
+                  <img src="/media/{{j.Image}}" alt=""> {% comment %}  Or Use This <img src="{{j.Image.url}}" alt=""> {% endcomment %}
                 </div>
                 <div class="detail-box">
                   <h5>
-                    Delicious Pizza
+                    {{ j.Item_name }}
                   </h5>
                   <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                    {{ j.description }}
                   </p>
                   <div class="options">
                     <h6>
-                      $20
+                      ${{ j.Price }}
                     </h6>
                     <a href="">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -330,11 +328,12 @@
               </div>
             </div>
           </div>
+          {% comment "" %}
           <div class="col-sm-6 col-lg-4 all burger">
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f2.png' %}" alt="">
+                  <img src="images/f2.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -410,7 +409,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f3.png' %}" alt="">
+                  <img src="images/f3.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -486,7 +485,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f4.png' %}" alt="">
+                  <img src="images/f4.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -562,7 +561,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f5.png' %}" alt="">
+                  <img src="images/f5.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -638,7 +637,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f6.png' %}" alt="">
+                  <img src="images/f6.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -714,7 +713,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f7.png' %}" alt="">
+                  <img src="images/f7.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -790,7 +789,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f8.png' %}" alt="">
+                  <img src="images/f8.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -866,7 +865,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% static 'images/f9.png' %}" alt="">
+                  <img src="images/f9.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -938,6 +937,8 @@
               </div>
             </div>
           </div>
+          {% endcomment %}
+          {% endfor %}
         </div>
       </div>
       <div class="btn-box">
@@ -946,9 +947,7 @@
         </a>
       </div>
     </div>
-  </section>
-
-  <!-- end food section -->
+</section>
 
 
 

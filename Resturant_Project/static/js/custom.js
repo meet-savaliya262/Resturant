@@ -10,6 +10,14 @@ getYear();
 
 // isotope js
 $(window).on('load', function () {
+    var $grid = $(".grid").isotope({
+        itemSelector: ".all",
+        percentPosition: false,
+        masonry: {
+            columnWidth: ".all"
+        }
+    });
+
     $('.filters_menu li').click(function () {
         $('.filters_menu li').removeClass('active');
         $(this).addClass('active');
@@ -17,16 +25,8 @@ $(window).on('load', function () {
         var data = $(this).attr('data-filter');
         $grid.isotope({
             filter: data
-        })
+        });
     });
-
-    var $grid = $(".grid").isotope({
-        itemSelector: ".all",
-        percentPosition: false,
-        masonry: {
-            columnWidth: ".all"
-        }
-    })
 });
 
 // nice select
