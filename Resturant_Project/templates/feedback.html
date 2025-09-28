@@ -4,42 +4,54 @@
 
 
 {% block main %}
-  <!-- client section -->
 
-  <section class="client_section layout_padding-bottom">
+<!-- feedback section -->
+  <section class="book_section layout_padding">
     <div class="container">
-      <div class="heading_container heading_center psudo_white_primary mb_45">
+      <div class="heading_container">
         <h2>
-          What Says Our Customers
+          Give Your Feedback here
         </h2>
       </div>
-      <div class="carousel-wrap row ">
-        <div class="owl-carousel client_owl-carousel">
-          {% for r in review %}
-          <div class="item">
-            <div class="box">
-              <div class="detail-box">
-                <p>
-                  {{r.Description}}
-                </p>
-                <h6>
-                  {{r.User_name}}
-                </h6>
-                <p>
-                 Rating : {{r.Rating}}/5
-                </p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form_container">
+            <form action="{% url 'feedback' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+              <div>
+                <input type="text" class="form-control" name="user_name" placeholder="Your Name" />
               </div>
-              <div class="img-box">
-                <img src="{{r.Image.url}} " alt="{{r.Image.url}}" class="box-img">
+              <div>
+                <label for="desc" classs="form-label">Enter Description here*</label>
+                 <textarea class="form-control" name="Description" id="desc" rows="3"></textarea>
               </div>
-            </div>
+              <div>
+                <select class="form-control nice-select wide" name="Rating" required>
+                  <option value="" disabled selected>give rating here?</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <div>
+                <label for="formfilelg" class="form-label">Select Image</label>
+                <input class="form-control form-control-lg" name="Image" id="formfilelg" type="file">
+              </div>
+              <div class="btn_box">
+              <center>
+                <button>
+                  submit
+                </button>
+              </center>
+              </div>
+            </form>
           </div>
-          {% endfor %}
         </div>
+        
       </div>
     </div>
   </section>
+  <!-- end Feedback section -->
 
-  <!-- end client section -->
 {% endblock main %}
 

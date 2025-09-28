@@ -35,7 +35,7 @@ class BookTable(models.Model):
     Name=models.CharField(max_length=15)
     Phone_number=models.IntegerField()
     Email=models.EmailField()
-    Total_perdon=models.IntegerField()
+    Total_person=models.IntegerField()
     Booking_date=models.DateField()
 
     def __str__(self):
