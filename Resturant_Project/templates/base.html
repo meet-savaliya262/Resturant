@@ -71,6 +71,16 @@
               <li class="nav-item {% if request.path == '/feedback/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'feedback' %}">Feedback</a>
               </li>
+              <li class="nav-item {% if request.path == '/cart/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'cart_view' %}">
+                  <i class="fa fa-shopping-cart"></i> Cart
+                  {% if request.session.cart %}
+                    <span class="badge badge-pill badge-danger">
+                      {{ request.session.cart|length }}
+                    </span>
+                  {% endif %}
+                </a>
+              </li>
             </ul>
             <div class="user_option">
               {% comment %} <a href="" class="user_link">

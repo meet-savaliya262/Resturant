@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block class %} class="sub_page" {% endblock class %}
+
+{% block main %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">🛒 Your Shopping Cart</h2>
+
+    {% if cart %}
+    <div class="table-responsive shadow rounded">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Food</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, item in cart.items %}
+                <tr>
+                    <td class="fw-semibold">{{ item.name }}</td>
+                    <td>₹{{ item.price }}</td>
+                    <td>
+                        <span class="badge bg-primary fs-6">{{ item.quantity }}</span>
+                    </td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' id %}" class="btn btn-sm btn-danger">
+                            <i class="fa-solid fa-trash"></i> Remove
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light shadow-sm rounded">
+        <h4 class="mb-0">Total: <span class="text-success fw-bold">₹{{ total }}</span></h4>
+        <a href="#" class="btn btn-lg btn-success">
+            <i class="fa-solid fa-credit-card"></i> Checkout
+        </a>
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center shadow-sm" role="alert">
+        <i class="fa-solid fa-cart-arrow-down fa-lg"></i> Your cart is empty 😢
+    </div>
+    {% endif %}
+</div>
+{% endblock main %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from Base_App.models import BookTable,AboutUs,Feedback,ItemList,Items
 # Create your views here.
@@ -44,3 +44,35 @@ def Feedbacks(request):
             data=Feedback(User_name=name,Description=description,Rating=rating,Image=image)
             data.save()
     return render(request,'feedback.html')
+
+
+def add_to_cart(request, food_id):
+    item = get_object_or_404(Items, id=food_id) 
+    cart = request.session.get('cart', {})
+
+    if str(item.id) in cart:
+        cart[str(item.id)]['quantity'] += 1
+    else:
+        cart[str(item.id)] = {
+            'name': item.Item_name, 
+            'price': item.Price,
+            'quantity': 1,
+        }
+
+
+    request.session['cart'] = cart
+    request.session.modified = True
+    return redirect('cart_view')
+
+def remove_from_cart(request, food_id):
+    cart = request.session.get('cart', {})
+    if str(food_id) in cart:
+        del cart[str(food_id)]
+        request.session['cart'] = cart
+        request.session.modified = True
+    return redirect('cart_view')
+
+def cart_view(request):
+    cart = request.session.get('cart', {})
+    total = sum(item['price'] * item['quantity'] for item in cart.values())
+    return render(request, 'cart.html', {'cart': cart, 'total': total})

@@ -1005,3 +1005,31 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
+
+/* Cart Styling */
+table.table th, 
+table.table td {
+    vertical-align: middle;
+}
+
+table.table-hover tbody tr:hover {
+    background-color: #f9f9f9;
+    transition: 0.3s ease;
+}
+
+h2 {
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-success {
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+.badge {
+    padding: 10px 15px;
+    border-radius: 12px;
+}
