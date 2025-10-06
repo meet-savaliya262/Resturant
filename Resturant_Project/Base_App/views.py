@@ -1,25 +1,30 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from Base_App.models import BookTable,AboutUs,Feedback,ItemList,Items
-# Create your views here.
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='login')
 def HomeView(request):
     items=Items.objects.all()
     list=ItemList.objects.all()
     review=Feedback.objects.all()
     return render(request,'index.html',{'items':items,'list':list,'review':review})
 
+@login_required(login_url='login')
 def AboutView(request):
     data=AboutUs.objects.all()
     return render(request,'about.html',{'data':data})
 
-
+@login_required(login_url='login')
 def MenuView(request):
     items=Items.objects.all()
     list=ItemList.objects.all()
     return render(request,'menu.html',{'items':items,'list':list})
 
-
+@login_required(login_url='login')
 def BookTableView(request):
     if request.method=='POST':
         name=request.POST.get('user_name')
@@ -33,6 +38,7 @@ def BookTableView(request):
             data.save()
     return render(request,'book_table.html')
 
+@login_required(login_url='login')
 def Feedbacks(request):
     if request.method=='POST':
         name=request.POST.get('user_name')
@@ -57,12 +63,31 @@ def add_to_cart(request, food_id):
             'name': item.Item_name, 
             'price': item.Price,
             'quantity': 1,
+            'image': item.Image.url
         }
-
-
     request.session['cart'] = cart
     request.session.modified = True
     return redirect('cart_view')
+
+
+def increase_quantity(request, item_id):
+    cart = request.session.get('cart', {})
+    if str(item_id) in cart:
+        cart[str(item_id)]['quantity'] += 1
+    request.session['cart'] = cart
+    return redirect('cart_view')  
+
+def decrease_quantity(request, item_id):
+    cart = request.session.get('cart', {})
+    if str(item_id) in cart:
+        if cart[str(item_id)]['quantity'] > 1:
+            cart[str(item_id)]['quantity'] -= 1
+        else:
+            cart[str(item_id)]['quantity'] = 1
+    request.session['cart'] = cart
+    return redirect('cart_view')
+
+
 
 def remove_from_cart(request, food_id):
     cart = request.session.get('cart', {})
@@ -72,7 +97,56 @@ def remove_from_cart(request, food_id):
         request.session.modified = True
     return redirect('cart_view')
 
+@login_required(login_url='login')
 def cart_view(request):
     cart = request.session.get('cart', {})
     total = sum(item['price'] * item['quantity'] for item in cart.values())
     return render(request, 'cart.html', {'cart': cart, 'total': total})
+
+
+
+def Login_page(request):
+    if request.method == "POST":
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+
+        if not User.objects.filter(username = username).exists():
+            messages.info(request,"Invalid username")
+            return redirect('login')
+        
+        user = authenticate(username=username,password=password)
+        if user is None:
+            messages.info(request,"Invalid username/password")
+            return redirect('login')
+        else:
+            login(request,user)
+            return redirect('/')
+
+
+    return render(request, 'login.html')
+
+
+def Signup(request):
+    if request.method == "POST":
+        username=request.POST.get('username')
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+
+        user=User.objects.filter(username=username)
+        if user.exists():
+            messages.info(request,"username already exist")
+            return redirect('signup')
+        
+        user=User.objects.create(
+            username=username,
+            email=email
+        )
+        user.set_password(password)
+        user.save()
+        messages.info(request,"Account created successfully")
+        return redirect('login')
+    return render(request, 'signup.html')
+
+def Logout_page(request):
+    logout(request)
+    return redirect('login')

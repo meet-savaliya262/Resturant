@@ -19,6 +19,8 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from Base_App.views import *
+from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +32,11 @@ urlpatterns = [
     path('cart/', cart_view, name='cart_view'),
     path('add-to-cart/<int:food_id>/', add_to_cart, name='add_to_cart'),
     path('remove-from-cart/<int:food_id>/',remove_from_cart, name='remove_from_cart'),
+    path('cart/increase/<int:item_id>/', increase_quantity, name='increase_quantity'),
+    path('cart/decrease/<int:item_id>/', decrease_quantity, name='decrease_quantity'),
+    path('login/',Login_page,name='login'),
+    path('signup/',Signup,name='signup'),
+    path('logout',Logout_page,name='logout')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
