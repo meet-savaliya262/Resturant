@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block class %} class="sub_page" {% endblock class %}
+
+{% block main %}
+  <div class="container my-5">
+    <div class="row g-4 justify-content-center">
+
+      <!-- Billing Details -->
+      <div class="col-lg-6 col-md-8">
+        <div class="card p-4">
+          <h2 class="section-title">Billing Details</h2>
+          <form method="POST" action="{% url 'place_order' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="name" required class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" required class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Phone Number</label>
+              <input type="text" name="phone" required class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <textarea name="address" rows="3" required class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-yellow w-100">Proceed to Payment 💳</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-4 col-md-8">
+        <div class="card p-4">
+          <h2 class="section-title">Order Summary</h2>
+          <div class="order-items mb-3">
+            {% for key, item in cart.items %}
+            <div class="order-item d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <img src="{{ item.image }}" alt="{{ item.name }}" class="me-3">
+                <div>
+                  <p class="mb-1 ml-3 text-dark fw-bold">{{ item.name }}</p>
+                  <small class="text-secondary ml-3">₹{{ item.price }} × {{ item.quantity }}</small>
+                </div>
+              </div>
+              <p class="fw-bold text-white">₹{{ item.price|floatformat:2|add:item.quantity|floatformat:2 }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="total-section d-flex justify-content-between">
+            <span class="form-label">Total:</span>
+            <span class="text-dark">₹{{ total }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock main %}
+

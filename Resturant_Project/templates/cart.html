@@ -4,8 +4,8 @@
 
 {% block main %}
 <div class="container my-5">
-  <h2 class="text-center mb-4">🛒 Your Shopping Cart</h2>
-
+<h2 class="text-center mb-4">🛒 Your Shopping Cart</h2>
+''
   {% if cart %}
   <div class="table-responsive">
     <table class="table cart-table align-middle text-center">
@@ -46,7 +46,7 @@
 
   <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light shadow-sm rounded">
     <h4 class="mb-0">Total: <span class="text-success fw-bold">${{ total }}</span></h4>
-    <a href="#" class="btn btn-lg btn-success">
+    <a href="{% url 'checkout' %}" class="btn btn-lg btn-success">
       <i class="fa fa-credit-card"></i> Checkout
     </a>
   </div>

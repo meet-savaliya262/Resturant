@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from Base_App.models import BookTable,AboutUs,Feedback,ItemList,Items
+from Base_App.models import BookTable,AboutUs,Feedback,ItemList,Items,Order
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -150,3 +150,52 @@ def Signup(request):
 def Logout_page(request):
     logout(request)
     return redirect('login')
+
+
+
+@login_required(login_url='login')
+def checkout_view(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('cart_view')
+
+    total = sum(item['price'] * item['quantity'] for item in cart.values())
+    return render(request, 'checkout.html', {'cart': cart, 'total': total})
+
+
+@login_required(login_url='login')
+def place_order(request):
+    if request.method == 'POST':
+        cart = request.session.get('cart', {})
+        if not cart:
+            return redirect('cart_view')
+
+        total = sum(item['price'] * item['quantity'] for item in cart.values())
+
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+
+        # Save order
+        Order.objects.create(
+            user=request.user,
+            name=name,
+            email=email,
+            phone=phone,
+            address=address,
+            total_amount=total
+        )
+
+        # Clear cart
+        request.session['cart'] = {}
+        request.session.modified = True
+
+        return redirect('order_success')
+
+    return redirect('checkout_view')
+
+
+@login_required(login_url='login')
+def order_success(request):
+    return render(request, 'success.html')

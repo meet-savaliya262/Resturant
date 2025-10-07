@@ -1,0 +1,92 @@
+/* Card style for sections */
+.card {
+  background-color: #fffcfc;
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+/* Section headers */
+.section-title {
+  color: #000000;
+  border-bottom: 2px solid #ffcc00;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+/* Form input style */
+.form-control {
+  background-color: #fffcfc;
+  border: 1px solid #ffcc00;
+  color: #1d1b1b;
+}
+
+.form-label{
+    color:#121111;
+}
+.form-control:focus {
+  background-color: #ffffff;
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 0.2rem rgba(255, 204, 0, 0.25);
+  color: #fff;
+}
+
+/* Textarea */
+textarea.form-control {
+  resize: none;
+}
+
+/* Button style */
+.btn-yellow {
+  background-color: #ffcc00;
+  color: #000;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-yellow:hover {
+  background-color: #e6b800;
+  color: #000;
+}
+
+/* Order summary scroll */
+.order-items {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.order-item {
+  border-bottom: 1px solid #444;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Responsive image */
+.order-item img {
+  width: 70px;
+  height: 60px;
+  border-radius: 0.5rem;
+}
+
+/* Total section */
+.total-section {
+  border-top: 2px solid #ffcc00;
+  padding-top: 1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding: 1rem !important;
+  }
+  .order-items {
+    max-height: 300px;
+  }
+}
