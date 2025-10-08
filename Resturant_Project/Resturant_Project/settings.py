@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,6 +52,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "CraveByte Admin",     
+    "site_header": "CraveByte",             
+    "site_brand": "CraveByte",          
+    "welcome_sign": "Welcome to CraveByte Admin Panel",
+    "copyright": "CraveByte © 2025",
+}
+
 
 ROOT_URLCONF = 'Resturant_Project.urls'
 
