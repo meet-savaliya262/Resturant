@@ -29,7 +29,12 @@ class AboutUsAdmin(admin.ModelAdmin):
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('User_name', 'Description', 'Rating', 'Image')
+    list_display = ('User_name', 'Description', 'Rating', 'get_image')
+    def get_image(self, obj):
+        if obj.Image:
+            return format_html('<img src="{}" width="100" height="100" />', obj.Image.url)
+        return "-"
+    get_image.short_description = 'Image'
 
 @admin.register(BookTable)
 class BookTableAdmin(admin.ModelAdmin):
@@ -37,4 +42,21 @@ class BookTableAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'name', 'email', 'phone', 'total_amount', 'created_at')
+    list_display = ('id','user','name','email','phone','total_amount','created_at','get_items_images')
+    list_filter = ('created_at','user')
+    search_fields = ('name','email','phone','user__username')
+
+    def get_items_images(self,obj):
+        items = obj.food_items.all()
+        if not items:
+            return "-"
+        html = '<div style="display:flex; overflow-x:auto;">'
+        for item in items:
+            if item.Image: 
+                html += f'<img src="{item.Image.url}" width="90" height="80" style=" margin:2px; border-radius:6px;" title="{item.Item_name}" />'
+        html += '</div>'
+        return format_html(html)
+
+    get_items_images.short_description = 'Ordered Items'
+
+

@@ -50,15 +50,16 @@ class FoodItem(models.Model):
     def __str__(self):
         return self.name
     
-
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    food_items = models.ManyToManyField(Items, related_name="orders") 
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     address = models.TextField()
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='items/', blank=True, null=True) 
 
     def __str__(self):
         return f"Order #{self.id} by {self.user.username}"

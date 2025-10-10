@@ -178,7 +178,7 @@ def place_order(request):
         address = request.POST.get('address')
 
         # Save order
-        Order.objects.create(
+        order = Order.objects.create(
             user=request.user,
             name=name,
             email=email,
@@ -187,13 +187,17 @@ def place_order(request):
             total_amount=total
         )
 
-        # Clear cart
+        for item_id, item_data in cart.items():
+            item = Items.objects.get(id=item_id)
+            order.food_items.add(item)
+
         request.session['cart'] = {}
         request.session.modified = True
 
         return redirect('order_success')
 
-    return redirect('checkout_view')
+    return redirect('checkout')
+
 
 
 @login_required(login_url='login')
