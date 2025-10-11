@@ -172,16 +172,12 @@ def place_order(request):
 
         total = sum(item['price'] * item['quantity'] for item in cart.values())
 
-        name = request.POST.get('name')
-        email = request.POST.get('email')
         phone = request.POST.get('phone')
         address = request.POST.get('address')
 
-        # Save order
+        # Save order using logged-in user info
         order = Order.objects.create(
             user=request.user,
-            name=name,
-            email=email,
             phone=phone,
             address=address,
             total_amount=total
@@ -200,6 +196,13 @@ def place_order(request):
 
 
 
+
 @login_required(login_url='login')
 def order_success(request):
     return render(request, 'success.html')
+
+
+@login_required(login_url='login')
+def my_orders_view(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'order.html', {'orders': orders})

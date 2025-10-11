@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block class %} class="sub_page" {% endblock class %}
+
+{% block main %}
+<div class="orders-container">
+  {% if orders %}
+    <h1 class="orders-title">🛍️ My Orders</h1>
+
+    <div class="orders-list">
+      {% for order in orders %}
+      <div class="order-card">
+        
+        <div class="order-header">
+          <div>
+            <h2 class="order-id">Order #{{ order.id }}</h2>
+            <p class="order-date">
+              Placed on {{ order.created_at|date:"M d, Y h:i A" }}
+            </p>
+          </div>
+          <div class="order-badges">
+            <span class="badge badge-total">
+              ₹{{ order.total_amount }}
+            </span>
+            {% if order.status %}
+            <span class="badge badge-status badge-{{ order.status|lower }}">
+              {{ order.status }}
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="food-items-grid">
+          {% for item in order.food_items.all %}
+          <div class="food-item-card">
+            <div class="food-item-image-container">
+              <img src="{{ item.Image.url }}" alt="{{ item.Item_name }}"
+                   class="food-item-image">
+            </div>
+            <div class="food-item-details">
+              <h3 class="food-item-name">{{ item.Item_name }}</h3>
+              <p class="food-item-price">₹{{ item.Price }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="order-footer">
+          <div class="order-details-info">
+            <p><strong>Name:</strong> {{ order.name }}</p>
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+            <p><strong>Address:</strong> {{ order.address }}</p>
+          </div>
+          <button class="track-button">
+            Track Order
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+  <div class="empty-state">
+    <img src="{% static 'images/empty_cart.svg' %}" class="empty-image">
+    <h2 class="empty-title">No Orders Yet</h2>
+    <p class="empty-text">You haven’t placed any orders yet.</p>
+    <a href="{% url 'menu' %}" 
+       class="browse-menu-button">
+      Browse Menu
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% endblock main %}

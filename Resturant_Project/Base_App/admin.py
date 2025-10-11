@@ -42,18 +42,19 @@ class BookTableAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id','user','name','email','phone','total_amount','created_at','get_items_images')
-    list_filter = ('created_at','user')
-    search_fields = ('name','email','phone','user__username')
+    list_display = ('id', 'user', 'name', 'email', 'phone', 'total_amount', 'created_at', 'get_items_images', 'status')
+    list_filter = ('created_at', 'user', 'status')
+    list_editable = ('status',)
+    readonly_fields = ('user', 'name', 'email')  # cannot overwrite these in admin
 
-    def get_items_images(self,obj):
+    def get_items_images(self, obj):
         items = obj.food_items.all()
         if not items:
             return "-"
         html = '<div style="display:flex; overflow-x:auto;">'
         for item in items:
-            if item.Image: 
-                html += f'<img src="{item.Image.url}" width="90" height="80" style=" margin:2px; border-radius:6px;" title="{item.Item_name}" />'
+            if item.Image:
+                html += f'<img src="{item.Image.url}" width="90" height="80" style="margin:2px; border-radius:6px;" title="{item.Item_name}" />'
         html += '</div>'
         return format_html(html)
 

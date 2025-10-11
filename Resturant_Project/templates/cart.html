@@ -3,9 +3,9 @@
 {% block class %} class="sub_page" {% endblock class %}
 
 {% block main %}
-<div class="container my-5">
+<div class="container cart-container my-5">
 <h2 class="text-center mb-4">🛒 Your Shopping Cart</h2>
-''
+
   {% if cart %}
   <div class="table-responsive">
     <table class="table cart-table align-middle text-center">
@@ -21,20 +21,36 @@
       <tbody>
         {% for id, item in cart.items %}
         <tr>
-          <td>
+          <td data-label="Image"> 
             <img src="{{ item.image }}" alt="{{ item.name }}" class="cart-img">
           </td>
-          <td class="fw-semibold">{{ item.name }}</td>
-          <td>${{ item.price }}</td>
-          <td>
+          
+          <td data-label="Food" class="desktop-view-cell fw-semibold">{{ item.name }}</td>
+          <td data-label="Price" class="desktop-view-cell">${{ item.price }}</td>
+          <td data-label="Quantity" class="desktop-view-cell">
             <div class="quantity-box">
               <a href="{% url 'decrease_quantity' id %}">-</a>
               <span>{{ item.quantity }}</span>
               <a href="{% url 'increase_quantity' id %}">+</a>
             </div>
           </td>
-          <td>
-            <a href="{% url 'remove_from_cart' id %}" class="btn btn-sm btn-danger">
+          
+          <td colspan="3" class="product-details-group">
+            <div class="product-details">
+              <div data-label="Food" class="item-name fw-semibold">{{ item.name }}</div>
+              <div data-label="Price" class="item-price">${{ item.price }}</div>
+              <div data-label="Quantity" class="item-quantity">
+                <div class="quantity-box">
+                  <a href="{% url 'decrease_quantity' id %}">-</a>
+                  <span>{{ item.quantity }}</span>
+                  <a href="{% url 'increase_quantity' id %}">+</a>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td data-label="Action">
+            <a href="{% url 'remove_from_cart' id %}" class="btn btn-sm btn-danger remove-item-btn" title="Remove Item">
               <i class="fa fa-trash"></i> Remove
             </a>
           </td>
@@ -43,18 +59,17 @@
       </tbody>
     </table>
   </div>
-
-  <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light shadow-sm rounded">
-    <h4 class="mb-0">Total: <span class="text-success fw-bold">${{ total }}</span></h4>
-    <a href="{% url 'checkout' %}" class="btn btn-lg btn-success">
-      <i class="fa fa-credit-card"></i> Checkout
-    </a>
-  </div>
-
+      <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light shadow-sm rounded">
+        <h4 class="mb-0">Total: <span class="text-success fw-bold">${{ total }}</span></h4>
+          <a href="{% url 'checkout' %}" class="btn btn-lg btn-success">
+            <i class="fa fa-credit-card"></i> Checkout
+          </a>
+      </div>
   {% else %}
-  <div class="alert alert-warning text-center shadow-sm" role="alert">
-    <i class="fa fa-cart-arrow-down fa-lg"></i> Your cart is empty 😢
-  </div>
+    <div class="alert alert-warning text-center shadow-sm" role="alert">
+      <i class="fa fa-cart-arrow-down fa-lg"></i> Your cart is empty 😢
+    </div>
+  
   {% endif %}
 </div>
 
