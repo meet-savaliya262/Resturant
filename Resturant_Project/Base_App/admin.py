@@ -4,9 +4,10 @@ from Base_App.models import *
 
 @admin.register(Items)
 class ItemsAdmin(admin.ModelAdmin):
-    list_display = ('get_image','Item_name', 'Price', 'get_category','description')
+    list_display = ('get_image', 'Item_name', 'Price', 'get_category', 'description', 'edit_link')
     list_filter = ('Category',)
     search_fields = ('Item_name', 'Category__Category_name')
+    list_display_links = None 
 
     def get_image(self, obj):
         if obj.Image:
@@ -18,14 +19,35 @@ class ItemsAdmin(admin.ModelAdmin):
         return obj.Category.Category_name
     get_category.short_description = 'Category'
 
+    def edit_link(self, obj):
+        return format_html(
+            '<a href="{}" class="button" '
+            'style="color:#007bff;text-decoration:none;font-size:18px;">✏️ Edit</a>',
+            f'/admin/Base_App/items/{obj.id}/change/'
+        )
+    edit_link.short_description = 'Edit'
 
 @admin.register(ItemList)
 class ItemListAdmin(admin.ModelAdmin):
-    list_display = ('Category_name',)
+    list_display = ('Category_name','edit_link')
+    def edit_link(self, obj):
+        return format_html(
+            '<a href="{}" class="button" '
+            'style="color:#007bff;text-decoration:none;font-size:18px;">✏️ Edit</a>',
+            f'/admin/Base_App/itemlist/{obj.id}/change/'
+        )
+    edit_link.short_description = 'Edit'
 
 @admin.register(AboutUs)
 class AboutUsAdmin(admin.ModelAdmin):
-    list_display = ('Description',)
+    list_display = ('Description','edit_link')
+    def edit_link(self, obj):
+        return format_html(
+            '<a href="{}" class="button" '
+            'style="color:#007bff;text-decoration:none;font-size:18px;">✏️ Edit</a>',
+            f'/admin/Base_App/aboutus/{obj.id}/change/'
+        )
+    edit_link.short_description = 'Edit'
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):

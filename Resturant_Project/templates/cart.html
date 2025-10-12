@@ -26,7 +26,7 @@
           </td>
           
           <td data-label="Food" class="desktop-view-cell fw-semibold">{{ item.name }}</td>
-          <td data-label="Price" class="desktop-view-cell">${{ item.price }}</td>
+          <td data-label="Price" class="desktop-view-cell">₹{{ item.price }}</td>
           <td data-label="Quantity" class="desktop-view-cell">
             <div class="quantity-box">
               <a href="{% url 'decrease_quantity' id %}">-</a>
@@ -60,7 +60,7 @@
     </table>
   </div>
       <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light shadow-sm rounded">
-        <h4 class="mb-0">Total: <span class="text-success fw-bold">${{ total }}</span></h4>
+        <h4 class="mb-0">Total: <span class="text-success fw-bold">₹{{ total }}</span></h4>
           <a href="{% url 'checkout' %}" class="btn btn-lg btn-success">
             <i class="fa fa-credit-card"></i> Checkout
           </a>

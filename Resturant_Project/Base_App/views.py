@@ -175,7 +175,6 @@ def place_order(request):
         phone = request.POST.get('phone')
         address = request.POST.get('address')
 
-        # Save order using logged-in user info
         order = Order.objects.create(
             user=request.user,
             phone=phone,
