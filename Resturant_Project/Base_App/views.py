@@ -6,19 +6,16 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='login')
 def HomeView(request):
     items=Items.objects.all()
     list=ItemList.objects.all()
     review=Feedback.objects.all()
     return render(request,'index.html',{'items':items,'list':list,'review':review})
 
-@login_required(login_url='login')
 def AboutView(request):
     data=AboutUs.objects.all()
     return render(request,'about.html',{'data':data})
 
-@login_required(login_url='login')
 def MenuView(request):
     items=Items.objects.all()
     list=ItemList.objects.all()

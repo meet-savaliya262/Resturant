@@ -13,13 +13,16 @@
                 <div class="col-md-7 col-lg-6 ">
                   <div class="detail-box">
                     <h1>
-                      Fast Food Restaurant
+                      CraveByte Restaurant
                     </h1>
                     <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                      Taste the Art of Flavor at CraveByte
+                    </p>
+                    <p> 
+                      Bold flavors. Fresh ingredients. Unforgettable bites. Your craving ends here.
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn1">
+                      <a href="{% url 'menu' %}" class="btn1">
                         Order Now
                       </a>
                     </div>
@@ -28,19 +31,19 @@
               </div>
             </div>
           </div>
-          <div class="carousel-item ">
+          {% comment %} <div class="carousel-item ">
             <div class="container ">
               <div class="row">
                 <div class="col-md-7 col-lg-6 ">
                   <div class="detail-box">
                     <h1>
-                      Fast Food Restaurant
+                      CraveByte Restaurant
                     </h1>
                     <p>
                       Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn1">
+                      <a href="{% url 'menu' %}" class="btn1">
                         Order Now
                       </a>
                     </div>
@@ -48,36 +51,14 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="container ">
-              <div class="row">
-                <div class="col-md-7 col-lg-6 ">
-                  <div class="detail-box">
-                    <h1>
-                      Fast Food Restaurant
-                    </h1>
-                    <p>
-                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
-                    </p>
-                    <div class="btn-box">
-                      <a href="" class="btn1">
-                        Order Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> {% endcomment %}
         </div>
-        <div class="container">
+        {% comment %} <div class="container">
           <ol class="carousel-indicators">
             <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
             <li data-target="#customCarousel1" data-slide-to="1"></li>
-            <li data-target="#customCarousel1" data-slide-to="2"></li>
           </ol>
-        </div>
+        </div> {% endcomment %}
       </div>
 
     </section>
@@ -330,7 +311,7 @@
         </div>
       </div>
       <div class="btn-box">
-        <a href="">
+        <a href="{% url 'menu' %}">
           View More
         </a>
       </div>

@@ -15,7 +15,7 @@
   <link rel="shortcut icon" href="{% static 'images/favicon.png' %} " type="">
 
   
-  <title> Feane </title>
+  <title> CraveByte </title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %} " />
@@ -79,7 +79,7 @@
               </li>
               <li class="nav-item {% if request.path == '/cart/' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'cart_view' %}">
-                  <i class="fa fa-shopping-cart"></i>Cart
+                  <i class="fa fa-shopping-cart"></i>
                   {% if request.session.cart %}
                     ({{ request.session.cart|length }})
                   {% endif %}
