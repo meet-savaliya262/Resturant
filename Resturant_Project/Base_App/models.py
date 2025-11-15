@@ -61,7 +61,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     food_items = models.ManyToManyField('Items', related_name="orders")
     name = models.CharField(max_length=100, blank=True)  # auto-filled from user
-    email = models.EmailField(blank=True)                 # auto-filled from user
+    email = models.EmailField(blank=True)                # auto-filled from user
     phone = models.CharField(max_length=15)
     address = models.TextField()
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)

@@ -89,11 +89,11 @@
             <div class="user_option">
               {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}" class="order_online" style="color:black;">
-                  Logout
+                 <i class="fa fa-arrow-right">Logout</i>
                 </a>
               {% else %}
                 <a href="{% url 'login' %}" class="order_online" style="color:black;">
-                  Login / Signup
+                 <i class="fa fa-user"> Login </i>
                 </a>
               {% endif %}
 
